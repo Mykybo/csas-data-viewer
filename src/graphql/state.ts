@@ -1,5 +1,4 @@
 // Local GraphQL state
-import getDeletedTables from '@/queries/getDeletedTables'
 import getExpandedTables from '@/queries/getExpandedTables'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloLink } from 'apollo-link'
@@ -32,10 +31,6 @@ interface IExpandRowMutation {
   key: string
 }
 
-interface IRemoveRowMutation {
-  key: string
-}
-
 export default function createState(cache: InMemoryCache): ApolloLink {
   // Helper function to retrieve the state from cache
   function getState(query: any): IState {
@@ -52,17 +47,6 @@ export default function createState(cache: InMemoryCache): ApolloLink {
     cache,
     resolvers: {
       Mutation: {
-        removeItem(_, { key }: IRemoveRowMutation) {
-          const state = getState(getDeletedTables)
-          const newDeletedTables = new Set(state.deletedTables)
-          newDeletedTables.add(key)
-          const newState = {
-            ...state,
-            deletedTables: [...newDeletedTables],
-          }
-          writeState(newState)
-          return newState
-        },
         expandTable(_, { key }: IExpandRowMutation) {
           const state = getState(getExpandedTables)
           const newExpandedTables = new Set(state.expandedTables)

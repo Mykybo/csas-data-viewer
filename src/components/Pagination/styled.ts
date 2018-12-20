@@ -1,6 +1,15 @@
+import { IStyledWithTheme } from '@/themes/default'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { key } from 'styled-theme'
+
+interface IPaginationItemProps extends IStyledWithTheme {
+  empty?: boolean
+}
+
+interface IPaginationLinkProps extends IStyledWithTheme {
+  state?: string
+}
 
 export const PaginationWrapper = styled.div`
   display: flex;
@@ -17,7 +26,7 @@ export const PaginationList = styled.ul`
   align-items: normal;
 `
 
-export const StyledLink = styled(Link)<any>`
+export const StyledLink = styled(Link)<IPaginationLinkProps>`
   padding: 10px;
   height: 40px;
   min-width: 40px;
@@ -27,7 +36,8 @@ export const StyledLink = styled(Link)<any>`
   border: 1px solid ${key('colors.default')};
   color: #4d3d00;
 
-  ${({ state }: any) => state === 'active' && 'background-color: #FFCC00;'}
+  ${({ state }: IPaginationLinkProps) =>
+    state === 'active' && 'background-color: #FFCC00;'}
 
   &:defaultDark {
     background-color: ${key('colors.default')};
@@ -47,8 +57,8 @@ export const LinkButton = styled(Link)`
   }
 `
 
-export const PageItem = styled.li<any>`
-  ${({ empty }: any) =>
+export const PageItem = styled.li<IPaginationItemProps>`
+  ${({ empty }: IPaginationItemProps) =>
     empty &&
     `
       padding: 10px;

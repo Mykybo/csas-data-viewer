@@ -1,6 +1,8 @@
 # How to run
 
-* `yarn`
+# Dev
+
+* `yarn` or `yarn install`
 * `yarn start`
 
 # Production

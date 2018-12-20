@@ -20,39 +20,34 @@ const TableRow = ({ data, dataKey, header, expansionPossible }: IProps) => (
       <Query query={getTableInfo}>
         {({
           data: {
-            state: { expandedTables, deletedTables },
+            state: { expandedTables },
           },
         }) => {
           const isExpanded = expandedTables.includes(data[dataKey])
-          const isDeleted = deletedTables.includes(data[dataKey])
 
           return (
             <Fragment>
-              {!isDeleted && (
-                <Fragment>
-                  <RowContainer
-                    header={header}
-                    onClick={() =>
-                      !header &&
-                      expansionPossible &&
-                      expandTable({
-                        variables: { key: data[dataKey] },
-                      })
-                    }
-                  >
-                    <TableCells
-                      data={data}
-                      dataKey={dataKey}
-                      expansionPossible={expansionPossible}
-                      isExpanded={isExpanded}
-                      header={header}
-                      hasKids={!header}
-                    />
-                  </RowContainer>
-                  {isExpanded && (
-                    <NestedTables dataKey={dataKey} dataValue={data[dataKey]} />
-                  )}
-                </Fragment>
+              <RowContainer
+                header={header}
+                onClick={() =>
+                  !header &&
+                  expansionPossible &&
+                  expandTable({
+                    variables: { key: data[dataKey] },
+                  })
+                }
+              >
+                <TableCells
+                  data={data}
+                  dataKey={dataKey}
+                  expansionPossible={expansionPossible}
+                  isExpanded={isExpanded}
+                  header={header}
+                  hasKids={!header}
+                />
+              </RowContainer>
+              {isExpanded && (
+                <NestedTables dataKey={dataKey} dataValue={data[dataKey]} />
               )}
             </Fragment>
           )

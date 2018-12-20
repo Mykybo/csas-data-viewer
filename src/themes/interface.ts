@@ -5,7 +5,8 @@ export interface ITheme {
     border: string
     header: string
     rowdefaultDark: string
+    rowHover: string
     default: string
-    defaultDark: string,
+    defaultDark: string
   }
 }

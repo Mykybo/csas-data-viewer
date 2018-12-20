@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 
+// TODO: pagination for transactions
 const getTransactions = gql`
   query Transactions($accountNumber: String) {
     transactions(accountNumber: $accountNumber) {

@@ -11,6 +11,7 @@ const excludedKeys = new Set([
   'iban',
 ])
 
+// XXX: should be part of data table
 const extractHeaders = (items: IAccount[]) => {
   const headers: Set<string> = new Set()
   items.forEach((item: IAccount) => {
@@ -19,6 +20,7 @@ const extractHeaders = (items: IAccount[]) => {
   return Array.from(headers)
 }
 
+// XXX: this does not belong to utils
 const dataTransform = {
   amount: ({ value, currency }) => `${value} ${currency}`,
   receiver: ({ accountNumber }) => accountNumber,
@@ -48,8 +50,10 @@ const formatData = (key, value) => {
   return value
 }
 
+// TODO: translations should be done using some lib such as i18n
 const translateHeader = val => HeaderTranslations[val] || val
 
+// TODO: pagination functionality should be moved to a new pagination component
 const getPaginationItems = (current: number, last: number): number[] => {
   const delta = 2
   const left = current - delta
